@@ -20,13 +20,12 @@ def xgboost_predict(train, val, model):
     pred = model.predict(val)
     return pred[0]
 
-
 def xgboost_get_value(val, model):
     val = np.array(val).reshape(1, -1)
     pred = model.predict(val)
     return pred[0]
 
-def xgboost_prediction(df, isROC):
+def xgboost_prediction(df, isROC, prefix):
     model_path = ''
     estimators = 0
     if (isROC):
@@ -36,12 +35,12 @@ def xgboost_prediction(df, isROC):
             df['Close_Yesterday']
         df['Target'] = df.ROC.shift(-1)
         df = df[['ROC', 'Date', 'Target']].copy()
-        model_path = './xgboost/model_ROC.json'
+        model_path = './xgboost/model_ROC_' + prefix + '.json'
         estimators = 2000
     else:
         df = df[['Close', 'Date']].copy()
         df['Target'] = df.Close.shift(-1)
-        model_path = './xgboost/model_CLOSE.json'
+        model_path = './xgboost/model_CLOSE_' + prefix + '.json'
         estimators = 25
 
     df.dropna(inplace=True)
