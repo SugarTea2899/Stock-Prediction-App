@@ -35,14 +35,14 @@ lstm_df_close_tsla, lstm_valid_close_tsla = predict_lstm(df2, False)
 lstm_df_roc_msft, lstm_valid_roc_msft = predict_lstm(df3, True)
 lstm_df_close_msft, lstm_valid_close_msft = predict_lstm(df3, False)
 
-xgboost_df_roc_fb, xgboost_valid_roc_fb = xgboost_prediction(pd.read_csv(df1), True)
-xgboost_df_close_fb, xgboost_valid_close_fb = xgboost_prediction(pd.read_csv(df1), False)
+xgboost_df_roc_fb, xgboost_valid_roc_fb = xgboost_prediction(pd.read_csv(df1), True, 'FB')
+xgboost_df_close_fb, xgboost_valid_close_fb = xgboost_prediction(pd.read_csv(df1), False, 'FB')
 
-xgboost_df_roc_tsla, xgboost_valid_roc_tsla = xgboost_prediction(pd.read_csv(df2), True)
-xgboost_df_close_tsla, xgboost_valid_close_tsla = xgboost_prediction(pd.read_csv(df2), False)
+xgboost_df_roc_tsla, xgboost_valid_roc_tsla = xgboost_prediction(pd.read_csv(df2), True, 'TSLA')
+xgboost_df_close_tsla, xgboost_valid_close_tsla = xgboost_prediction(pd.read_csv(df2), False, 'TSLA')
 
-xgboost_df_roc_msft, xgboost_valid_roc_msft = xgboost_prediction(pd.read_csv(df3), True)
-xgboost_df_close_msft, xgboost_valid_close_msft = xgboost_prediction(pd.read_csv(df3), False)
+xgboost_df_roc_msft, xgboost_valid_roc_msft = xgboost_prediction(pd.read_csv(df3), True, 'MSFT')
+xgboost_df_close_msft, xgboost_valid_close_msft = xgboost_prediction(pd.read_csv(df3), False, 'MSFT')
 
 app.layout = html.Div([
 
