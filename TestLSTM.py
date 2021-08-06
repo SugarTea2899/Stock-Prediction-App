@@ -6,6 +6,7 @@
 import os
 import pandas as pd
 import numpy as np
+import math
 import matplotlib.pyplot as plt
 from keras.models import Sequential
 from keras.layers import LSTM, Dropout, Dense
@@ -40,8 +41,10 @@ def predict_lstm(data, isROC):
 
         final_dataset = new_dataset.values
 
-        train_data = final_dataset[0:987, :]
-        valid_data = final_dataset[987:, :]
+        dataset_length = math.floor(len(final_dataset) * 0.7)
+
+        train_data = final_dataset[0:dataset_length, :]
+        valid_data = final_dataset[dataset_length:, :]
 
         scaler = MinMaxScaler(feature_range=(0, 1))
         scaled_data = scaler.fit_transform(final_dataset)
@@ -80,8 +83,8 @@ def predict_lstm(data, isROC):
         closing_price = lstm_model.predict(X_test)
         closing_price = scaler.inverse_transform(closing_price)
 
-        train_data = new_dataset[:987]
-        valid_data = new_dataset[987:]
+        train_data = new_dataset[:dataset_length]
+        valid_data = new_dataset[dataset_length:]
         valid_data['Predictions'] = closing_price
 
         return df, valid_data;
@@ -103,9 +106,10 @@ def predict_lstm(data, isROC):
         new_dataset.drop("Date", axis=1, inplace=True)
 
         final_dataset = new_dataset.values
+        dataset_length = math.floor(len(final_dataset) * 0.7)
 
-        train_data = final_dataset[0:987, :]
-        valid_data = final_dataset[987:, :]
+        train_data = final_dataset[0:dataset_length, :]
+        valid_data = final_dataset[dataset_length:, :]
 
         scaler = MinMaxScaler(feature_range=(0, 1))
         scaled_data = scaler.fit_transform(final_dataset)
@@ -144,8 +148,8 @@ def predict_lstm(data, isROC):
         closing_price = lstm_model.predict(X_test)
         closing_price = scaler.inverse_transform(closing_price)
 
-        train_data = new_dataset[:987]
-        valid_data = new_dataset[987:]
+        train_data = new_dataset[:dataset_length]
+        valid_data = new_dataset[dataset_length:]
         valid_data['Predictions'] = closing_price
 
         print("new_dataset")
